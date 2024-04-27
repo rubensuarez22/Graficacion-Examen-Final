@@ -202,7 +202,7 @@ namespace PLAYGROUND
             for (int j = 0; j < scene.Models.Count; j++)
             {
                 Mesh mesh = scene.Models[j];
-                List<Vertex> rotatedVertices = new List<Vertex>();
+                List<Vertex> transformedVertices = new List<Vertex>();
 
                 for (int i = 0; i < mesh.Vertices.Count; i++)
                 {
@@ -210,14 +210,24 @@ namespace PLAYGROUND
                     Vertex rotated = Rotaciones.Rot(mesh.Transform.RotationX, vertex, 'X');
                     rotated = Rotaciones.Rot(mesh.Transform.RotationY, rotated, 'Y');
                     rotated = Rotaciones.Rot(mesh.Transform.RotationZ, rotated, 'Z');
-                    rotatedVertices.Add(rotated);
+
+
+                    // Trasladar el vértice
+                    Vertex traslated = new Vertex
+                    {
+                        X = rotated.X + mesh.Transform.TranslationX,
+                        Y = rotated.Y + mesh.Transform.TranslationY,
+                        Z = rotated.Z + mesh.Transform.TranslationZ,
+
+                    };
+                    transformedVertices.Add(traslated);
                 }
 
                 for (int i = 0; i < mesh.Indexes.Count; i += 3)
                 {
-                    Vertex v1 = rotatedVertices[mesh.Indexes[i]];
-                    Vertex v2 = rotatedVertices[mesh.Indexes[i + 1]];
-                    Vertex v3 = rotatedVertices[mesh.Indexes[i + 2]];
+                    Vertex v1 = transformedVertices[mesh.Indexes[i]];
+                    Vertex v2 = transformedVertices[mesh.Indexes[i + 1]];
+                    Vertex v3 = transformedVertices[mesh.Indexes[i + 2]];
 
                     // Transform vertices to perspective
                     PointF p1 = PerspectiveTransform(v1, cameraZ, focalLength);

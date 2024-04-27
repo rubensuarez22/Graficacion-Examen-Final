@@ -32,20 +32,24 @@
             this.PNL_MAIN = new System.Windows.Forms.Panel();
             this.PCT_CANVAS = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.BTN_MOVERARRIBA = new System.Windows.Forms.Button();
+            this.BTN_MOVERIZQUIERDA = new System.Windows.Forms.Button();
+            this.BTN_MOVEDERECHA = new System.Windows.Forms.Button();
+            this.CHECKBOX_RotacionZ = new System.Windows.Forms.CheckBox();
+            this.CHECKBOX_RotacionY = new System.Windows.Forms.CheckBox();
+            this.CHECKBOX_RotacionX = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.BTN_SELECT = new System.Windows.Forms.Button();
             this.BTN_2 = new System.Windows.Forms.Button();
             this.BTN_Rotate = new System.Windows.Forms.Button();
             this.PNL_BOTTOM = new System.Windows.Forms.Panel();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.BTN_PLAY = new System.Windows.Forms.Button();
+            this.BTN_KEYFRAME = new System.Windows.Forms.Button();
             this.LBL_STATUS = new System.Windows.Forms.Label();
             this.PNL_HEADER = new System.Windows.Forms.Panel();
             this.TIMER = new System.Windows.Forms.Timer(this.components);
-            this.BTN_KEYFRAME = new System.Windows.Forms.Button();
-            this.BTN_PLAY = new System.Windows.Forms.Button();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.CHECKBOX_RotacionX = new System.Windows.Forms.CheckBox();
-            this.CHECKBOX_RotacionY = new System.Windows.Forms.CheckBox();
-            this.CHECKBOX_RotacionZ = new System.Windows.Forms.CheckBox();
+            this.BTN_MOVERABAJO = new System.Windows.Forms.Button();
             this.PNL_MAIN.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PCT_CANVAS)).BeginInit();
             this.panel2.SuspendLayout();
@@ -87,6 +91,10 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.panel2.Controls.Add(this.BTN_MOVERABAJO);
+            this.panel2.Controls.Add(this.BTN_MOVERARRIBA);
+            this.panel2.Controls.Add(this.BTN_MOVERIZQUIERDA);
+            this.panel2.Controls.Add(this.BTN_MOVEDERECHA);
             this.panel2.Controls.Add(this.CHECKBOX_RotacionZ);
             this.panel2.Controls.Add(this.CHECKBOX_RotacionY);
             this.panel2.Controls.Add(this.CHECKBOX_RotacionX);
@@ -95,6 +103,66 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 459);
             this.panel2.TabIndex = 5;
+            // 
+            // BTN_MOVERARRIBA
+            // 
+            this.BTN_MOVERARRIBA.Location = new System.Drawing.Point(89, 108);
+            this.BTN_MOVERARRIBA.Name = "BTN_MOVERARRIBA";
+            this.BTN_MOVERARRIBA.Size = new System.Drawing.Size(34, 29);
+            this.BTN_MOVERARRIBA.TabIndex = 5;
+            this.BTN_MOVERARRIBA.Text = "^";
+            this.BTN_MOVERARRIBA.UseVisualStyleBackColor = true;
+            this.BTN_MOVERARRIBA.Click += new System.EventHandler(this.BTN_MOVERARRIBA_Click);
+            // 
+            // BTN_MOVERIZQUIERDA
+            // 
+            this.BTN_MOVERIZQUIERDA.Location = new System.Drawing.Point(59, 153);
+            this.BTN_MOVERIZQUIERDA.Name = "BTN_MOVERIZQUIERDA";
+            this.BTN_MOVERIZQUIERDA.Size = new System.Drawing.Size(27, 29);
+            this.BTN_MOVERIZQUIERDA.TabIndex = 4;
+            this.BTN_MOVERIZQUIERDA.Text = "<";
+            this.BTN_MOVERIZQUIERDA.UseVisualStyleBackColor = true;
+            this.BTN_MOVERIZQUIERDA.Click += new System.EventHandler(this.BTN_MOVERIZQUIERDA_Click);
+            // 
+            // BTN_MOVEDERECHA
+            // 
+            this.BTN_MOVEDERECHA.Location = new System.Drawing.Point(132, 153);
+            this.BTN_MOVEDERECHA.Name = "BTN_MOVEDERECHA";
+            this.BTN_MOVEDERECHA.Size = new System.Drawing.Size(30, 29);
+            this.BTN_MOVEDERECHA.TabIndex = 3;
+            this.BTN_MOVEDERECHA.Text = ">";
+            this.BTN_MOVEDERECHA.UseVisualStyleBackColor = true;
+            this.BTN_MOVEDERECHA.Click += new System.EventHandler(this.BTN_MOVERDERECHA_Click);
+            // 
+            // CHECKBOX_RotacionZ
+            // 
+            this.CHECKBOX_RotacionZ.AutoSize = true;
+            this.CHECKBOX_RotacionZ.Location = new System.Drawing.Point(13, 68);
+            this.CHECKBOX_RotacionZ.Name = "CHECKBOX_RotacionZ";
+            this.CHECKBOX_RotacionZ.Size = new System.Drawing.Size(147, 28);
+            this.CHECKBOX_RotacionZ.TabIndex = 2;
+            this.CHECKBOX_RotacionZ.Text = "Rotacion en Z";
+            this.CHECKBOX_RotacionZ.UseVisualStyleBackColor = true;
+            // 
+            // CHECKBOX_RotacionY
+            // 
+            this.CHECKBOX_RotacionY.AutoSize = true;
+            this.CHECKBOX_RotacionY.Location = new System.Drawing.Point(13, 40);
+            this.CHECKBOX_RotacionY.Name = "CHECKBOX_RotacionY";
+            this.CHECKBOX_RotacionY.Size = new System.Drawing.Size(147, 28);
+            this.CHECKBOX_RotacionY.TabIndex = 1;
+            this.CHECKBOX_RotacionY.Text = "Rotacion en Y";
+            this.CHECKBOX_RotacionY.UseVisualStyleBackColor = true;
+            // 
+            // CHECKBOX_RotacionX
+            // 
+            this.CHECKBOX_RotacionX.AutoSize = true;
+            this.CHECKBOX_RotacionX.Location = new System.Drawing.Point(13, 6);
+            this.CHECKBOX_RotacionX.Name = "CHECKBOX_RotacionX";
+            this.CHECKBOX_RotacionX.Size = new System.Drawing.Size(149, 28);
+            this.CHECKBOX_RotacionX.TabIndex = 0;
+            this.CHECKBOX_RotacionX.Text = "Rotacion en X";
+            this.CHECKBOX_RotacionX.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -111,7 +179,7 @@
             // BTN_SELECT
             // 
             this.BTN_SELECT.Location = new System.Drawing.Point(23, 58);
-            this.BTN_SELECT.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BTN_SELECT.Margin = new System.Windows.Forms.Padding(2);
             this.BTN_SELECT.Name = "BTN_SELECT";
             this.BTN_SELECT.Size = new System.Drawing.Size(128, 38);
             this.BTN_SELECT.TabIndex = 2;
@@ -151,6 +219,35 @@
             this.PNL_BOTTOM.Size = new System.Drawing.Size(1283, 100);
             this.PNL_BOTTOM.TabIndex = 3;
             // 
+            // trackBar1
+            // 
+            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBar1.Location = new System.Drawing.Point(206, 41);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(871, 45);
+            this.trackBar1.TabIndex = 40;
+            // 
+            // BTN_PLAY
+            // 
+            this.BTN_PLAY.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTN_PLAY.Location = new System.Drawing.Point(1130, 29);
+            this.BTN_PLAY.Name = "BTN_PLAY";
+            this.BTN_PLAY.Size = new System.Drawing.Size(100, 40);
+            this.BTN_PLAY.TabIndex = 1;
+            this.BTN_PLAY.Text = "PLAY";
+            this.BTN_PLAY.UseVisualStyleBackColor = true;
+            // 
+            // BTN_KEYFRAME
+            // 
+            this.BTN_KEYFRAME.Location = new System.Drawing.Point(41, 41);
+            this.BTN_KEYFRAME.Name = "BTN_KEYFRAME";
+            this.BTN_KEYFRAME.Size = new System.Drawing.Size(110, 40);
+            this.BTN_KEYFRAME.TabIndex = 0;
+            this.BTN_KEYFRAME.Text = "KEY";
+            this.BTN_KEYFRAME.UseVisualStyleBackColor = true;
+            // 
             // LBL_STATUS
             // 
             this.LBL_STATUS.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -176,64 +273,15 @@
             this.TIMER.Interval = 10;
             this.TIMER.Tick += new System.EventHandler(this.TIMER_Tick);
             // 
-            // BTN_KEYFRAME
+            // BTN_MOVERABAJO
             // 
-            this.BTN_KEYFRAME.Location = new System.Drawing.Point(41, 41);
-            this.BTN_KEYFRAME.Name = "BTN_KEYFRAME";
-            this.BTN_KEYFRAME.Size = new System.Drawing.Size(110, 40);
-            this.BTN_KEYFRAME.TabIndex = 0;
-            this.BTN_KEYFRAME.Text = "KEY";
-            this.BTN_KEYFRAME.UseVisualStyleBackColor = true;
-            // 
-            // BTN_PLAY
-            // 
-            this.BTN_PLAY.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTN_PLAY.Location = new System.Drawing.Point(1130, 29);
-            this.BTN_PLAY.Name = "BTN_PLAY";
-            this.BTN_PLAY.Size = new System.Drawing.Size(100, 40);
-            this.BTN_PLAY.TabIndex = 1;
-            this.BTN_PLAY.Text = "PLAY";
-            this.BTN_PLAY.UseVisualStyleBackColor = true;
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar1.Location = new System.Drawing.Point(206, 41);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(871, 45);
-            this.trackBar1.TabIndex = 40;
-            // 
-            // CHECKBOX_RotacionX
-            // 
-            this.CHECKBOX_RotacionX.AutoSize = true;
-            this.CHECKBOX_RotacionX.Location = new System.Drawing.Point(13, 6);
-            this.CHECKBOX_RotacionX.Name = "CHECKBOX_RotacionX";
-            this.CHECKBOX_RotacionX.Size = new System.Drawing.Size(149, 28);
-            this.CHECKBOX_RotacionX.TabIndex = 0;
-            this.CHECKBOX_RotacionX.Text = "Rotacion en X";
-            this.CHECKBOX_RotacionX.UseVisualStyleBackColor = true;
-            // 
-            // CHECKBOX_RotacionY
-            // 
-            this.CHECKBOX_RotacionY.AutoSize = true;
-            this.CHECKBOX_RotacionY.Location = new System.Drawing.Point(13, 40);
-            this.CHECKBOX_RotacionY.Name = "CHECKBOX_RotacionY";
-            this.CHECKBOX_RotacionY.Size = new System.Drawing.Size(147, 28);
-            this.CHECKBOX_RotacionY.TabIndex = 1;
-            this.CHECKBOX_RotacionY.Text = "Rotacion en Y";
-            this.CHECKBOX_RotacionY.UseVisualStyleBackColor = true;
-            // 
-            // CHECKBOX_RotacionZ
-            // 
-            this.CHECKBOX_RotacionZ.AutoSize = true;
-            this.CHECKBOX_RotacionZ.Location = new System.Drawing.Point(13, 68);
-            this.CHECKBOX_RotacionZ.Name = "CHECKBOX_RotacionZ";
-            this.CHECKBOX_RotacionZ.Size = new System.Drawing.Size(147, 28);
-            this.CHECKBOX_RotacionZ.TabIndex = 2;
-            this.CHECKBOX_RotacionZ.Text = "Rotacion en Z";
-            this.CHECKBOX_RotacionZ.UseVisualStyleBackColor = true;
+            this.BTN_MOVERABAJO.Location = new System.Drawing.Point(89, 153);
+            this.BTN_MOVERABAJO.Name = "BTN_MOVERABAJO";
+            this.BTN_MOVERABAJO.Size = new System.Drawing.Size(37, 29);
+            this.BTN_MOVERABAJO.TabIndex = 6;
+            this.BTN_MOVERABAJO.Text = "V";
+            this.BTN_MOVERABAJO.UseVisualStyleBackColor = true;
+            this.BTN_MOVERABAJO.Click += new System.EventHandler(this.BTN_MOVERABAJO_Click);
             // 
             // MyForm
             // 
@@ -276,6 +324,10 @@
         private System.Windows.Forms.CheckBox CHECKBOX_RotacionZ;
         private System.Windows.Forms.CheckBox CHECKBOX_RotacionY;
         private System.Windows.Forms.CheckBox CHECKBOX_RotacionX;
+        private System.Windows.Forms.Button BTN_MOVEDERECHA;
+        private System.Windows.Forms.Button BTN_MOVERIZQUIERDA;
+        private System.Windows.Forms.Button BTN_MOVERARRIBA;
+        private System.Windows.Forms.Button BTN_MOVERABAJO;
     }
 }
 

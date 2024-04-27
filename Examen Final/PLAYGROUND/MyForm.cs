@@ -17,10 +17,11 @@ namespace PLAYGROUND
         {
             InitializeComponent();
             Init();
-
+            Width = PCT_CANVAS.ClientSize.Width;
+            Height = PCT_CANVAS.ClientSize.Height;
             CHECKBOX_RotacionX.CheckedChanged += RotarFigura;
-            CHECKBOX_RotacionY.CheckedChanged += RotarFigura;   
-            CHECKBOX_RotacionZ.CheckedChanged += RotarFigura;   
+            CHECKBOX_RotacionY.CheckedChanged += RotarFigura;
+            CHECKBOX_RotacionZ.CheckedChanged += RotarFigura;
 
             TIMER.Tick += RotarFigura;
         }
@@ -81,22 +82,6 @@ namespace PLAYGROUND
 
         private void TIMER_Tick(object sender, EventArgs e)
         {
-            if (onn == 1)
-            {
-                /*Mesh modelToRotate = scene.Models[0]; // Asume que solo hay un modelo en la escena
-
-            // Rota el modelo en los ejes X, Y y Z
-            modelToRotate.Transform.Rotate(1, 0, 0);
-            renderer.RenderScene(scene);*/
-                // Obtén la referencia al Mesh que deseas rotar
-               // Mesh modelToRotate = scene.Models[0]; // Asume que solo hay un modelo en la escena
-
-                // Rota el modelo en los ejes X, Y y Z
-               // modelToRotate.Transform.Rotate(0.01f, 0, 0); // Ajusta los valores de rotación según sea necesario
-
-                // Fuerza el renderizado actualizado
-           //     renderer.RenderScene(scene);
-            }
 
         }
 
@@ -162,6 +147,46 @@ namespace PLAYGROUND
                 }
 
                 // Redibujar la figura después de aplicar las rotaciones
+                renderer.RenderScene(scene);
+            }
+        }
+
+        private void BTN_MOVERARRIBA_Click(object sender, EventArgs e)
+        {
+            if (scene.Models[0] != null)
+            {
+                Mesh modelToTranslate = scene.Models[0]; // Asume que solo hay un modelo
+                modelToTranslate.Transform.Translate(0.0f, -1.0f, 0.0f); // Ajusta según la necesidad
+                renderer.RenderScene(scene);
+            }
+        }
+
+        private void BTN_MOVERABAJO_Click(object sender, EventArgs e)
+        {
+            if (scene.Models[0] != null)
+            {
+                Mesh modelToTranslate = scene.Models[0]; // Asume que solo hay un modelo
+                modelToTranslate.Transform.Translate(0.0f, 1.0f, 0.0f); // Ajusta según la necesidad
+                renderer.RenderScene(scene);
+            }
+        }
+
+        private void BTN_MOVERIZQUIERDA_Click(object sender, EventArgs e)
+        {
+            if (scene.Models[0] != null)
+            {
+                Mesh modelToTranslate = scene.Models[0]; // Asume que solo hay un modelo
+                modelToTranslate.Transform.Translate(-1.0f, 0.0f, 0.0f); // Ajusta según la necesidad
+                renderer.RenderScene(scene);
+            }
+        }
+
+        private void BTN_MOVERDERECHA_Click(object sender, EventArgs e)
+        {
+            if (scene.Models[0] != null)
+            {
+                Mesh modelToTranslate = scene.Models[0]; // Asume que solo hay un modelo
+                modelToTranslate.Transform.Translate(1.0f, 0.0f, 0.0f); // Ajusta según la necesidad
                 renderer.RenderScene(scene);
             }
         }

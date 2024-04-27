@@ -50,18 +50,19 @@ namespace PLAYGROUND
             this.CHECKBOX_RotacionY = new System.Windows.Forms.CheckBox();
             this.CHECKBOX_RotacionX = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.listBoxModels = new System.Windows.Forms.ListBox();
             this.BTN_SELECT = new System.Windows.Forms.Button();
             this.BTN_2 = new System.Windows.Forms.Button();
             this.BTN_Rotate = new System.Windows.Forms.Button();
             this.PNL_BOTTOM = new System.Windows.Forms.Panel();
+            this.LBL_KEYFRAMECOUNT = new System.Windows.Forms.Label();
             this.TRACKBAR_KEYFRAME = new System.Windows.Forms.TrackBar();
             this.BTN_PLAY = new System.Windows.Forms.Button();
             this.BTN_KEYFRAME = new System.Windows.Forms.Button();
             this.LBL_STATUS = new System.Windows.Forms.Label();
             this.PNL_HEADER = new System.Windows.Forms.Panel();
             this.TIMER = new System.Windows.Forms.Timer(this.components);
-            this.listBoxModels = new System.Windows.Forms.ListBox();
-            this.LBL_KEYFRAMECOUNT = new System.Windows.Forms.Label();
+            this.BTN_ClearKeyFrames = new System.Windows.Forms.Button();
             this.PNL_MAIN.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PCT_CANVAS)).BeginInit();
             this.panel2.SuspendLayout();
@@ -268,6 +269,7 @@ namespace PLAYGROUND
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.panel1.Controls.Add(this.BTN_ClearKeyFrames);
             this.panel1.Controls.Add(this.listBoxModels);
             this.panel1.Controls.Add(this.BTN_SELECT);
             this.panel1.Controls.Add(this.BTN_2);
@@ -277,6 +279,16 @@ namespace PLAYGROUND
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 459);
             this.panel1.TabIndex = 4;
+            // 
+            // listBoxModels
+            // 
+            this.listBoxModels.FormattingEnabled = true;
+            this.listBoxModels.ItemHeight = 24;
+            this.listBoxModels.Location = new System.Drawing.Point(23, 230);
+            this.listBoxModels.Name = "listBoxModels";
+            this.listBoxModels.Size = new System.Drawing.Size(120, 76);
+            this.listBoxModels.TabIndex = 4;
+            this.listBoxModels.SelectedIndexChanged += new System.EventHandler(this.listBoxModels_SelectedIndexChanged);
             // 
             // BTN_SELECT
             // 
@@ -321,6 +333,15 @@ namespace PLAYGROUND
             this.PNL_BOTTOM.Name = "PNL_BOTTOM";
             this.PNL_BOTTOM.Size = new System.Drawing.Size(1283, 100);
             this.PNL_BOTTOM.TabIndex = 3;
+            // 
+            // LBL_KEYFRAMECOUNT
+            // 
+            this.LBL_KEYFRAMECOUNT.AutoSize = true;
+            this.LBL_KEYFRAMECOUNT.Location = new System.Drawing.Point(3, 14);
+            this.LBL_KEYFRAMECOUNT.Name = "LBL_KEYFRAMECOUNT";
+            this.LBL_KEYFRAMECOUNT.Size = new System.Drawing.Size(160, 24);
+            this.LBL_KEYFRAMECOUNT.TabIndex = 41;
+            this.LBL_KEYFRAMECOUNT.Text = "Key frames count:";
             // 
             // TRACKBAR_KEYFRAME
             // 
@@ -377,24 +398,15 @@ namespace PLAYGROUND
             this.TIMER.Interval = 10;
             this.TIMER.Tick += new System.EventHandler(this.TIMER_Tick);
             // 
-            // listBoxModels
+            // BTN_ClearKeyFrames
             // 
-            this.listBoxModels.FormattingEnabled = true;
-            this.listBoxModels.ItemHeight = 24;
-            this.listBoxModels.Location = new System.Drawing.Point(23, 230);
-            this.listBoxModels.Name = "listBoxModels";
-            this.listBoxModels.Size = new System.Drawing.Size(120, 76);
-            this.listBoxModels.TabIndex = 4;
-            this.listBoxModels.SelectedIndexChanged += new System.EventHandler(this.listBoxModels_SelectedIndexChanged);
-            // 
-            // LBL_KEYFRAMECOUNT
-            // 
-            this.LBL_KEYFRAMECOUNT.AutoSize = true;
-            this.LBL_KEYFRAMECOUNT.Location = new System.Drawing.Point(3, 14);
-            this.LBL_KEYFRAMECOUNT.Name = "LBL_KEYFRAMECOUNT";
-            this.LBL_KEYFRAMECOUNT.Size = new System.Drawing.Size(160, 24);
-            this.LBL_KEYFRAMECOUNT.TabIndex = 41;
-            this.LBL_KEYFRAMECOUNT.Text = "Key frames count:";
+            this.BTN_ClearKeyFrames.Location = new System.Drawing.Point(12, 390);
+            this.BTN_ClearKeyFrames.Name = "BTN_ClearKeyFrames";
+            this.BTN_ClearKeyFrames.Size = new System.Drawing.Size(164, 63);
+            this.BTN_ClearKeyFrames.TabIndex = 5;
+            this.BTN_ClearKeyFrames.Text = "Limpiar keyframes";
+            this.BTN_ClearKeyFrames.UseVisualStyleBackColor = true;
+            this.BTN_ClearKeyFrames.Click += new System.EventHandler(this.BTN_ClearKeyFrames_Click);
             // 
             // MyForm
             // 
@@ -451,6 +463,7 @@ namespace PLAYGROUND
         private System.Windows.Forms.Label LBL_ESCALADO;
         private System.Windows.Forms.ListBox listBoxModels;
         private System.Windows.Forms.Label LBL_KEYFRAMECOUNT;
+        private System.Windows.Forms.Button BTN_ClearKeyFrames;
     }
 }
 

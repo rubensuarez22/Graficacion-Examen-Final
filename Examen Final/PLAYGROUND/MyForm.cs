@@ -272,18 +272,22 @@ namespace PLAYGROUND
 
                     foreach (var mesh in scene.Models)
                     {
-                        Transform startTransform = startFrame.MeshTransforms[mesh];
-                        Transform endTransform = endFrame.MeshTransforms[mesh];
-                        Transform interpolatedTransform = Interpolate(startTransform, endTransform, t);
-                        mesh.Transform = interpolatedTransform;
+                        if (startFrame.MeshTransforms.ContainsKey(mesh) && endFrame.MeshTransforms.ContainsKey(mesh))
+                        {
+                            Transform startTransform = startFrame.MeshTransforms[mesh];
+                            Transform endTransform = endFrame.MeshTransforms[mesh];
+                            Transform interpolatedTransform = Interpolate(startTransform, endTransform, t);
+                            mesh.Transform = interpolatedTransform;
+                        }
                     }
 
                     renderer.RenderScene(scene);
-                    Application.DoEvents(); // Keep the UI responsive
+                    Application.DoEvents(); // Mantén la UI responsiva
                 }
             }
             stopwatch.Stop();
         }
+
 
 
         private void StopAnimation()
@@ -337,20 +341,12 @@ namespace PLAYGROUND
             Console.WriteLine("Hay suficientes KeyFrames. ¿Está animando? " + isAnimating);
             if (!isAnimating)
             {
-                // Ordenar y mostrar el contenido de los Keyframes para depuración
+                // Ordenar los KeyFrames por tiempo para asegurarse de que están en el orden correcto
                 scene.Keyframes.Sort((a, b) => a.Time.CompareTo(b.Time));
-                foreach (var kf in scene.Keyframes)
-                {
-                    Console.WriteLine($"Keyframe en tiempo {kf.Time}:");
-                    foreach (var mesh in kf.MeshTransforms)
-                    {
-                        Console.WriteLine($"Mesh: {mesh.Key}, TransX: {mesh.Value.TranslationX}, TransY: {mesh.Value.TranslationY}, TransZ: {mesh.Value.TranslationZ}");
-                    }
-                }
 
-                // Aplicar el primer Keyframe
+                // Aplicar el primer Keyframe a todos los modelos
                 SceneKeyframe firstKeyframe = scene.Keyframes[0];
-                foreach (Mesh mesh in scene.Models)
+                foreach (var mesh in scene.Models)
                 {
                     if (firstKeyframe.MeshTransforms.ContainsKey(mesh))
                     {
@@ -362,11 +358,12 @@ namespace PLAYGROUND
                 renderer.RenderScene(scene);
                 Console.WriteLine("Escena renderizada con el primer KeyFrame.");
 
+                // Reiniciar y empezar el cronómetro y la animación
                 animationStopwatch.Restart();
                 currentFrameIndex = 0;
                 isAnimating = true;
                 TIMER.Start();
-                Console.WriteLine("Animación iniciada.");
+                Console.WriteLine("Animación iniciada inmediatamente.");
             }
             else
             {
@@ -380,12 +377,17 @@ namespace PLAYGROUND
 
 
 
+
+
+
         private void BTN_KEYFRAME_Click(object sender, EventArgs e)
         {
-            float currentTime = TRACKBAR_KEYFRAME.Value;  // Asegúrate de que TRACKBAR_KEYFRAME está configurado correctamente
+            float currentTime = TRACKBAR_KEYFRAME.Value; // Asegúrate de que TRACKBAR_KEYFRAME está configurado correctamente
+            SceneKeyframe keyframe = new SceneKeyframe(currentTime);
+
+            // Capturar transformaciones de todos los Mesh en la escena
             foreach (Mesh mesh in scene.Models)
             {
-                // Crear una nueva instancia de Transform para capturar el estado actual del modelo
                 Transform currentTransform = new Transform
                 {
                     TranslationX = mesh.Transform.TranslationX,
@@ -399,14 +401,31 @@ namespace PLAYGROUND
                     ScaleZ = mesh.Transform.ScaleZ
                 };
 
-                SceneKeyframe keyframe = new SceneKeyframe(currentTime);
-                keyframe.AddMeshTransform(mesh, currentTransform);
-
-                Console.WriteLine($"Capturado Keyframe en tiempo {currentTime} para modelo: Transformación - TransX: {currentTransform.TranslationX}, TransY: {currentTransform.TranslationY}, TransZ: {currentTransform.TranslationZ}");
-                scene.AddKeyframe(keyframe);
+                keyframe.AddMeshTransform(mesh, currentTransform); // Asegúrate de que cada Mesh tiene una entrada en el diccionario
             }
+
+            scene.AddKeyframe(keyframe);
             LBL_KEYFRAMECOUNT.Text = $"KeyFrames: {scene.Keyframes.Count}";
         }
+
+        private void BTN_ClearKeyFrames_Click(object sender, EventArgs e)
+        {
+            // Detener la animación si está corriendo
+            StopAnimation();
+
+            // Limpiar todos los KeyFrames
+            scene.Keyframes.Clear();
+
+            // Actualizar la interfaz de usuario si es necesario, por ejemplo, actualizar un label que muestra el número de KeyFrames
+            LBL_KEYFRAMECOUNT.Text = "KeyFrames: 0";
+
+            // Redibujar la escena para mostrar el estado inicial de los modelos
+            renderer.RenderScene(scene);
+
+            // Mostrar mensaje de confirmación si es necesario
+            MessageBox.Show("KeyFrames limpiados y animación reseteada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
 
 
 

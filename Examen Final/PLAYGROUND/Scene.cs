@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PLAYGROUND
 {
@@ -30,7 +31,9 @@ namespace PLAYGROUND
         {
             Keyframes.Add(keyframe);
             Keyframes.Sort((k1, k2) => k1.Time.CompareTo(k2.Time)); // Ensure keyframes are ordered by time
+            Console.WriteLine($"Keyframe added at time {keyframe.Time}"); // Agrega un mensaje de depuración
         }
+
 
     }
 

@@ -22,6 +22,7 @@ namespace PLAYGROUND
         private Stopwatch animationStopwatch = new Stopwatch();
         private bool isAnimating = false;
         private int currentFrameIndex = 0;
+        private float elapsedSinceLastKeyframe = 0.0f;
 
         public MyForm()
         {
@@ -254,9 +255,63 @@ namespace PLAYGROUND
             }
         }
 
+        private void PlayAnimation()
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            for (int i = 0; i < scene.Keyframes.Count - 1; i++)
+            {
+                var startFrame = scene.Keyframes[i];
+                var endFrame = scene.Keyframes[i + 1];
+                float frameDuration = endFrame.Time - startFrame.Time;
+
+                while (stopwatch.Elapsed.TotalSeconds < endFrame.Time)
+                {
+                    float t = (float)((stopwatch.Elapsed.TotalSeconds - startFrame.Time) / frameDuration);
+
+                    foreach (var mesh in scene.Models)
+                    {
+                        Transform startTransform = startFrame.MeshTransforms[mesh];
+                        Transform endTransform = endFrame.MeshTransforms[mesh];
+                        Transform interpolatedTransform = Interpolate(startTransform, endTransform, t);
+                        mesh.Transform = interpolatedTransform;
+                    }
+
+                    renderer.RenderScene(scene);
+                    Application.DoEvents(); // Keep the UI responsive
+                }
+            }
+            stopwatch.Stop();
+        }
+
+
+        private void StopAnimation()
+        {
+            isAnimating = false;
+            TIMER.Stop();
+            animationStopwatch.Stop();
+            Console.WriteLine("Animación detenida y cronómetro detenido");
+        }
+
+
+
+
+        private void TIMER_Tick(object sender, EventArgs e)
+        {
+            if (isAnimating)
+            {
+                PlayAnimation();
+            }
+            else
+            {
+                
+            }
+        }
+
         private Transform Interpolate(Transform start, Transform end, float t)
         {
-            Transform interpolated = new Transform
+            return new Transform
             {
                 TranslationX = start.TranslationX + (end.TranslationX - start.TranslationX) * t,
                 TranslationY = start.TranslationY + (end.TranslationY - start.TranslationY) * t,
@@ -268,108 +323,92 @@ namespace PLAYGROUND
                 ScaleY = start.ScaleY + (end.ScaleY - start.ScaleY) * t,
                 ScaleZ = start.ScaleZ + (end.ScaleZ - start.ScaleZ) * t
             };
-            return interpolated;
-        }
-
-
-   
-
-        private void PlayAnimation()
-        {
-            if (!isAnimating)
-            {
-                if (scene.Keyframes.Count < 2)
-                {
-                    MessageBox.Show("Necesitas al menos 2 KeyFrames para la animación.");
-                    return;
-                }
-                // Ordena los KeyFrames por tiempo para asegurarte de que estén en el orden correcto
-                scene.Keyframes.Sort((a, b) => a.Time.CompareTo(b.Time));
-
-                animationStopwatch.Reset();
-                animationStopwatch.Start();
-                currentFrameIndex = 0;
-                isAnimating = true;
-                TIMER.Start();
-            }
-            else
-            {
-                // Detener la animación
-                animationStopwatch.Stop();
-                isAnimating = false;
-            }
-        }
-
-        private void TIMER_Tick(object sender, EventArgs e)
-        {
-            if (isAnimating)
-            {
-                if (currentFrameIndex < scene.Keyframes.Count - 1)
-                {
-                    var startFrame = scene.Keyframes[currentFrameIndex];
-                    var endFrame = scene.Keyframes[currentFrameIndex + 1];
-                    float frameDuration = endFrame.Time - startFrame.Time;
-                    float elapsed = (float)animationStopwatch.Elapsed.TotalSeconds;
-
-                    if (elapsed >= endFrame.Time)
-                    {
-                        currentFrameIndex++;
-                        if (currentFrameIndex >= scene.Keyframes.Count - 1)
-                        {
-                            isAnimating = false;
-                            TIMER.Stop();
-                            return;
-                        }
-                    }
-
-                    float t = (elapsed - startFrame.Time) / frameDuration;
-
-                    foreach (Mesh mesh in scene.Models)
-                    {
-                        Transform startTransform = startFrame.MeshTransforms[mesh];
-                        Transform endTransform = endFrame.MeshTransforms[mesh];
-                        Transform interpolatedTransform = Interpolate(startTransform, endTransform, t);
-                        mesh.Transform = interpolatedTransform;
-                    }
-
-                    renderer.RenderScene(scene);
-                }
-            }
-            else
-            {
-                // Aquí puedes manejar la lógica para otros usos del timer si es necesario
-            }
         }
 
         private void BTN_PLAY_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("Botón PLAY presionado. Verificando keyframes...");
             if (scene.Keyframes.Count < 2)
             {
                 MessageBox.Show("Necesitas al menos 2 KeyFrames para la animación.");
                 return;
             }
 
-            // Ordena los KeyFrames por tiempo para asegurarte de que estén en el orden correcto
-            scene.Keyframes = scene.Keyframes.OrderBy(kf => kf.Time).ToList();
+            Console.WriteLine("Hay suficientes KeyFrames. ¿Está animando? " + isAnimating);
+            if (!isAnimating)
+            {
+                // Ordenar y mostrar el contenido de los Keyframes para depuración
+                scene.Keyframes.Sort((a, b) => a.Time.CompareTo(b.Time));
+                foreach (var kf in scene.Keyframes)
+                {
+                    Console.WriteLine($"Keyframe en tiempo {kf.Time}:");
+                    foreach (var mesh in kf.MeshTransforms)
+                    {
+                        Console.WriteLine($"Mesh: {mesh.Key}, TransX: {mesh.Value.TranslationX}, TransY: {mesh.Value.TranslationY}, TransZ: {mesh.Value.TranslationZ}");
+                    }
+                }
 
-            // Inicia la animación
-            PlayAnimation();
+                // Aplicar el primer Keyframe
+                SceneKeyframe firstKeyframe = scene.Keyframes[0];
+                foreach (Mesh mesh in scene.Models)
+                {
+                    if (firstKeyframe.MeshTransforms.ContainsKey(mesh))
+                    {
+                        Transform initialTransform = firstKeyframe.MeshTransforms[mesh];
+                        mesh.Transform = initialTransform;
+                        Console.WriteLine($"Aplicando KeyFrame inicial a Mesh: TransX: {initialTransform.TranslationX}, TransY: {initialTransform.TranslationY}, TransZ: {initialTransform.TranslationZ}");
+                    }
+                }
+                renderer.RenderScene(scene);
+                Console.WriteLine("Escena renderizada con el primer KeyFrame.");
+
+                animationStopwatch.Restart();
+                currentFrameIndex = 0;
+                isAnimating = true;
+                TIMER.Start();
+                Console.WriteLine("Animación iniciada.");
+            }
+            else
+            {
+                StopAnimation();
+                Console.WriteLine("Animación detenida.");
+            }
         }
+
+
+
+
+
 
         private void BTN_KEYFRAME_Click(object sender, EventArgs e)
         {
-            float currentTime = TRACKBAR_KEYFRAME.Value;  // Suponiendo que TRACKBAR_KEYFRAME está configurado correctamente
-            SceneKeyframe keyframe = new SceneKeyframe(currentTime);
-
+            float currentTime = TRACKBAR_KEYFRAME.Value;  // Asegúrate de que TRACKBAR_KEYFRAME está configurado correctamente
             foreach (Mesh mesh in scene.Models)
             {
-                Transform currentTransform = mesh.GetCurrentTransform();  // Usa el nuevo método
-                keyframe.AddMeshTransform(mesh, currentTransform);
-            }
+                // Crear una nueva instancia de Transform para capturar el estado actual del modelo
+                Transform currentTransform = new Transform
+                {
+                    TranslationX = mesh.Transform.TranslationX,
+                    TranslationY = mesh.Transform.TranslationY,
+                    TranslationZ = mesh.Transform.TranslationZ,
+                    RotationX = mesh.Transform.RotationX,
+                    RotationY = mesh.Transform.RotationY,
+                    RotationZ = mesh.Transform.RotationZ,
+                    ScaleX = mesh.Transform.ScaleX,
+                    ScaleY = mesh.Transform.ScaleY,
+                    ScaleZ = mesh.Transform.ScaleZ
+                };
 
-            scene.AddKeyframe(keyframe);
+                SceneKeyframe keyframe = new SceneKeyframe(currentTime);
+                keyframe.AddMeshTransform(mesh, currentTransform);
+
+                Console.WriteLine($"Capturado Keyframe en tiempo {currentTime} para modelo: Transformación - TransX: {currentTransform.TranslationX}, TransY: {currentTransform.TranslationY}, TransZ: {currentTransform.TranslationZ}");
+                scene.AddKeyframe(keyframe);
+            }
             LBL_KEYFRAMECOUNT.Text = $"KeyFrames: {scene.Keyframes.Count}";
         }
+
+
 
 
         /*

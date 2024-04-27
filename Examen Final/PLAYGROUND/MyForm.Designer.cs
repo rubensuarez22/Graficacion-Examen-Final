@@ -40,9 +40,18 @@
             this.LBL_STATUS = new System.Windows.Forms.Label();
             this.PNL_HEADER = new System.Windows.Forms.Panel();
             this.TIMER = new System.Windows.Forms.Timer(this.components);
+            this.BTN_KEYFRAME = new System.Windows.Forms.Button();
+            this.BTN_PLAY = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.CHECKBOX_RotacionX = new System.Windows.Forms.CheckBox();
+            this.CHECKBOX_RotacionY = new System.Windows.Forms.CheckBox();
+            this.CHECKBOX_RotacionZ = new System.Windows.Forms.CheckBox();
             this.PNL_MAIN.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PCT_CANVAS)).BeginInit();
+            this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.PNL_BOTTOM.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // PNL_MAIN
@@ -58,9 +67,8 @@
             this.PNL_MAIN.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PNL_MAIN.ForeColor = System.Drawing.Color.Silver;
             this.PNL_MAIN.Location = new System.Drawing.Point(0, 0);
-            this.PNL_MAIN.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PNL_MAIN.Name = "PNL_MAIN";
-            this.PNL_MAIN.Size = new System.Drawing.Size(1924, 1050);
+            this.PNL_MAIN.Size = new System.Drawing.Size(1283, 682);
             this.PNL_MAIN.TabIndex = 0;
             // 
             // PCT_CANVAS
@@ -69,10 +77,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PCT_CANVAS.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
-            this.PCT_CANVAS.Location = new System.Drawing.Point(309, 163);
-            this.PCT_CANVAS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.PCT_CANVAS.Location = new System.Drawing.Point(206, 106);
             this.PCT_CANVAS.Name = "PCT_CANVAS";
-            this.PCT_CANVAS.Size = new System.Drawing.Size(1306, 688);
+            this.PCT_CANVAS.Size = new System.Drawing.Size(871, 447);
             this.PCT_CANVAS.TabIndex = 6;
             this.PCT_CANVAS.TabStop = false;
             this.PCT_CANVAS.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PCT_CANVAS_MouseMove);
@@ -80,11 +87,13 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.panel2.Controls.Add(this.CHECKBOX_RotacionZ);
+            this.panel2.Controls.Add(this.CHECKBOX_RotacionY);
+            this.panel2.Controls.Add(this.CHECKBOX_RotacionX);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(1624, 154);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel2.Location = new System.Drawing.Point(1083, 100);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(300, 707);
+            this.panel2.Size = new System.Drawing.Size(200, 459);
             this.panel2.TabIndex = 5;
             // 
             // panel1
@@ -94,17 +103,17 @@
             this.panel1.Controls.Add(this.BTN_2);
             this.panel1.Controls.Add(this.BTN_Rotate);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 154);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel1.Location = new System.Drawing.Point(0, 100);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(300, 707);
+            this.panel1.Size = new System.Drawing.Size(200, 459);
             this.panel1.TabIndex = 4;
             // 
             // BTN_SELECT
             // 
-            this.BTN_SELECT.Location = new System.Drawing.Point(35, 90);
+            this.BTN_SELECT.Location = new System.Drawing.Point(23, 58);
+            this.BTN_SELECT.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.BTN_SELECT.Name = "BTN_SELECT";
-            this.BTN_SELECT.Size = new System.Drawing.Size(192, 58);
+            this.BTN_SELECT.Size = new System.Drawing.Size(128, 38);
             this.BTN_SELECT.TabIndex = 2;
             this.BTN_SELECT.Text = "SELECT";
             this.BTN_SELECT.UseVisualStyleBackColor = true;
@@ -112,10 +121,9 @@
             // 
             // BTN_2
             // 
-            this.BTN_2.Location = new System.Drawing.Point(35, 235);
-            this.BTN_2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.BTN_2.Location = new System.Drawing.Point(23, 153);
             this.BTN_2.Name = "BTN_2";
-            this.BTN_2.Size = new System.Drawing.Size(192, 93);
+            this.BTN_2.Size = new System.Drawing.Size(128, 60);
             this.BTN_2.TabIndex = 1;
             this.BTN_2.Text = "LIGHT CHANGE";
             this.BTN_2.UseVisualStyleBackColor = true;
@@ -123,10 +131,9 @@
             // 
             // BTN_Rotate
             // 
-            this.BTN_Rotate.Location = new System.Drawing.Point(35, 166);
-            this.BTN_Rotate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.BTN_Rotate.Location = new System.Drawing.Point(23, 108);
             this.BTN_Rotate.Name = "BTN_Rotate";
-            this.BTN_Rotate.Size = new System.Drawing.Size(192, 44);
+            this.BTN_Rotate.Size = new System.Drawing.Size(128, 29);
             this.BTN_Rotate.TabIndex = 0;
             this.BTN_Rotate.Text = "PLAY/STOP";
             this.BTN_Rotate.UseVisualStyleBackColor = true;
@@ -135,21 +142,22 @@
             // PNL_BOTTOM
             // 
             this.PNL_BOTTOM.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.PNL_BOTTOM.Controls.Add(this.trackBar1);
+            this.PNL_BOTTOM.Controls.Add(this.BTN_PLAY);
+            this.PNL_BOTTOM.Controls.Add(this.BTN_KEYFRAME);
             this.PNL_BOTTOM.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.PNL_BOTTOM.Location = new System.Drawing.Point(0, 861);
-            this.PNL_BOTTOM.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.PNL_BOTTOM.Location = new System.Drawing.Point(0, 559);
             this.PNL_BOTTOM.Name = "PNL_BOTTOM";
-            this.PNL_BOTTOM.Size = new System.Drawing.Size(1924, 154);
+            this.PNL_BOTTOM.Size = new System.Drawing.Size(1283, 100);
             this.PNL_BOTTOM.TabIndex = 3;
             // 
             // LBL_STATUS
             // 
             this.LBL_STATUS.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.LBL_STATUS.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LBL_STATUS.Location = new System.Drawing.Point(0, 1015);
-            this.LBL_STATUS.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LBL_STATUS.Location = new System.Drawing.Point(0, 659);
             this.LBL_STATUS.Name = "LBL_STATUS";
-            this.LBL_STATUS.Size = new System.Drawing.Size(1924, 35);
+            this.LBL_STATUS.Size = new System.Drawing.Size(1283, 23);
             this.LBL_STATUS.TabIndex = 2;
             this.LBL_STATUS.Text = "WELCOME !!!";
             // 
@@ -158,9 +166,8 @@
             this.PNL_HEADER.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.PNL_HEADER.Dock = System.Windows.Forms.DockStyle.Top;
             this.PNL_HEADER.Location = new System.Drawing.Point(0, 0);
-            this.PNL_HEADER.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PNL_HEADER.Name = "PNL_HEADER";
-            this.PNL_HEADER.Size = new System.Drawing.Size(1924, 154);
+            this.PNL_HEADER.Size = new System.Drawing.Size(1283, 100);
             this.PNL_HEADER.TabIndex = 0;
             // 
             // TIMER
@@ -169,20 +176,83 @@
             this.TIMER.Interval = 10;
             this.TIMER.Tick += new System.EventHandler(this.TIMER_Tick);
             // 
+            // BTN_KEYFRAME
+            // 
+            this.BTN_KEYFRAME.Location = new System.Drawing.Point(41, 41);
+            this.BTN_KEYFRAME.Name = "BTN_KEYFRAME";
+            this.BTN_KEYFRAME.Size = new System.Drawing.Size(110, 40);
+            this.BTN_KEYFRAME.TabIndex = 0;
+            this.BTN_KEYFRAME.Text = "KEY";
+            this.BTN_KEYFRAME.UseVisualStyleBackColor = true;
+            // 
+            // BTN_PLAY
+            // 
+            this.BTN_PLAY.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTN_PLAY.Location = new System.Drawing.Point(1130, 29);
+            this.BTN_PLAY.Name = "BTN_PLAY";
+            this.BTN_PLAY.Size = new System.Drawing.Size(100, 40);
+            this.BTN_PLAY.TabIndex = 1;
+            this.BTN_PLAY.Text = "PLAY";
+            this.BTN_PLAY.UseVisualStyleBackColor = true;
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBar1.Location = new System.Drawing.Point(206, 41);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(871, 45);
+            this.trackBar1.TabIndex = 40;
+            // 
+            // CHECKBOX_RotacionX
+            // 
+            this.CHECKBOX_RotacionX.AutoSize = true;
+            this.CHECKBOX_RotacionX.Location = new System.Drawing.Point(13, 6);
+            this.CHECKBOX_RotacionX.Name = "CHECKBOX_RotacionX";
+            this.CHECKBOX_RotacionX.Size = new System.Drawing.Size(149, 28);
+            this.CHECKBOX_RotacionX.TabIndex = 0;
+            this.CHECKBOX_RotacionX.Text = "Rotacion en X";
+            this.CHECKBOX_RotacionX.UseVisualStyleBackColor = true;
+            // 
+            // CHECKBOX_RotacionY
+            // 
+            this.CHECKBOX_RotacionY.AutoSize = true;
+            this.CHECKBOX_RotacionY.Location = new System.Drawing.Point(13, 40);
+            this.CHECKBOX_RotacionY.Name = "CHECKBOX_RotacionY";
+            this.CHECKBOX_RotacionY.Size = new System.Drawing.Size(147, 28);
+            this.CHECKBOX_RotacionY.TabIndex = 1;
+            this.CHECKBOX_RotacionY.Text = "Rotacion en Y";
+            this.CHECKBOX_RotacionY.UseVisualStyleBackColor = true;
+            // 
+            // CHECKBOX_RotacionZ
+            // 
+            this.CHECKBOX_RotacionZ.AutoSize = true;
+            this.CHECKBOX_RotacionZ.Location = new System.Drawing.Point(13, 68);
+            this.CHECKBOX_RotacionZ.Name = "CHECKBOX_RotacionZ";
+            this.CHECKBOX_RotacionZ.Size = new System.Drawing.Size(147, 28);
+            this.CHECKBOX_RotacionZ.TabIndex = 2;
+            this.CHECKBOX_RotacionZ.Text = "Rotacion en Z";
+            this.CHECKBOX_RotacionZ.UseVisualStyleBackColor = true;
+            // 
             // MyForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1924, 1050);
+            this.ClientSize = new System.Drawing.Size(1283, 682);
             this.Controls.Add(this.PNL_MAIN);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MyForm";
             this.Text = "PLAYGROUND || VERLETS";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.SizeChanged += new System.EventHandler(this.MyForm_SizeChanged);
             this.PNL_MAIN.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PCT_CANVAS)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.PNL_BOTTOM.ResumeLayout(false);
+            this.PNL_BOTTOM.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -200,6 +270,12 @@
         private System.Windows.Forms.Button BTN_Rotate;
         private System.Windows.Forms.Button BTN_2;
         private System.Windows.Forms.Button BTN_SELECT;
+        private System.Windows.Forms.Button BTN_PLAY;
+        private System.Windows.Forms.Button BTN_KEYFRAME;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.CheckBox CHECKBOX_RotacionZ;
+        private System.Windows.Forms.CheckBox CHECKBOX_RotacionY;
+        private System.Windows.Forms.CheckBox CHECKBOX_RotacionX;
     }
 }
 

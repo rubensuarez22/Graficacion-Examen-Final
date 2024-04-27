@@ -231,11 +231,11 @@ namespace PLAYGROUND
 
                     // Calcular la normal del triángulo
                     Vertex normal = CalculateNormal(v1, v2, v3);
-                    Console.WriteLine($"Normal del triángulo: ({normal.X}, {normal.Y}, {normal.Z})"); // Línea de depuración
+                    
 
                     // Calcular la intensidad de la luz reflejada utilizando la ley de Lambert
                     float intensity = Math.Max(0, normal.X * lightDirection.X + normal.Y * lightDirection.Y + normal.Z * lightDirection.Z);
-                    Console.WriteLine($"Intensidad de la luz: {intensity}"); // Línea de depuración
+                    
 
                     // Calcular el color final del triángulo teniendo en cuenta la intensidad de la luz
                     Color triangleColor = Color.FromArgb(

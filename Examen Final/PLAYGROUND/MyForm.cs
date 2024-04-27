@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -12,6 +14,7 @@ namespace PLAYGROUND
         public int onn = 0;
         private float angle = 0.0f;
         private float deltaAngle = 2.0f;
+        Dictionary<int, string> modelNames = new Dictionary<int, string>();
 
         public MyForm()
         {
@@ -28,29 +31,20 @@ namespace PLAYGROUND
 
         private void Init()
         {
+            // Ajusta el tamaño y posición inicial del PictureBox o el control que usas para renderizar
             PCT_CANVAS.SetBounds(panel1.Width + 4, PNL_HEADER.Height + 4,
                 Width - panel1.Width - panel2.Width - 24,
                 Height - PNL_HEADER.Height - PNL_BOTTOM.Height - 72);
-            if (onn == 0)
-            {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
 
-                openFileDialog.Filter = "OBJ files (*.obj)|*.obj";
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    //Creamos nuevo canvas
-                    canvas = new Canvas(PCT_CANVAS);
-                    renderer = new Renderer(canvas);
-                    scene = new Scene();
-                    //Buscamos nuevo archivo
-                    string filename = openFileDialog.FileName;
-                    ObjLoader loader = new ObjLoader();
-                    Mesh model = loader.Load(filename); // Asegúrate de especificar la ruta correcta del archivo
-                    scene.AddModel(model);
-                }
-                onn = 1;
+            // Solo prepara el canvas y el renderer pero no carga ningún modelo
+            if (canvas == null)
+            {
+                canvas = new Canvas(PCT_CANVAS);
+                renderer = new Renderer(canvas);
+                scene = new Scene();
             }
         }
+
 
         private void MyForm_SizeChanged(object sender, EventArgs e)
         {
@@ -101,30 +95,58 @@ namespace PLAYGROUND
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-
             openFileDialog.Filter = "OBJ files (*.obj)|*.obj";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //Creamos nuevo canvas
+                // Guardar los modelos existentes temporalmente
+                List<Mesh> existingModels = new List<Mesh>();
+                if (scene != null && scene.Models != null)
+                {
+                    for (int i = 0; i < scene.Models.Count; i++)
+                    {
+                        existingModels.Add(scene.Models[i]);
+                    }
+                }
+
+                // Crear un nuevo Canvas y Renderer
                 canvas = new Canvas(PCT_CANVAS);
                 renderer = new Renderer(canvas);
                 scene = new Scene();
-                //Buscamos nuevo archivo
+
+                // Añadir los modelos existentes a la nueva escena
+                for (int i = 0; i < existingModels.Count; i++)
+                {
+                    scene.AddModel(existingModels[i]);
+                }
+
+                // Cargar el nuevo modelo
                 string filename = openFileDialog.FileName;
                 ObjLoader loader = new ObjLoader();
-                Mesh model = loader.Load(filename); // Asegúrate de especificar la ruta correcta del archivo
-                scene.AddModel(model);
+                Mesh newModel = loader.Load(filename); // Cambio de nombre para evitar el error CS0136
+                scene.AddModel(newModel);
+
+                // Agregar el nombre del modelo a la interfaz de usuario
+                string modelName = Path.GetFileNameWithoutExtension(filename);
+                listBoxModels.Items.Add(modelName);
+                modelNames[scene.Models.Count - 1] = modelName;
+
+                // Renderizar la escena con todos los modelos
+                renderer.RenderScene(scene);
             }
 
+            // Reiniciar o iniciar el TIMER
+            TIMER.Start();
         }
+
+
 
         private void RotarFigura(object sender, EventArgs e)
         {
-            if (scene.Models[0] != null)
+            if (scene.ActiveModel != null)
             {
                 // Convertir deltaAngle a radianes una sola vez
                 float deltaAngleRadians = deltaAngle * (float)(Math.PI / 180);
-                Mesh modelToRotate = scene.Models[0]; // Asume que solo hay un modelo en la escena
+                Mesh modelToRotate = scene.ActiveModel; // Asume que solo hay un modelo en la escena
 
                 // Rota el modelo en los ejes X, Y y Z
 
@@ -153,9 +175,9 @@ namespace PLAYGROUND
 
         private void BTN_MOVERARRIBA_Click(object sender, EventArgs e)
         {
-            if (scene.Models[0] != null)
+            if (scene.ActiveModel != null)
             {
-                Mesh modelToTranslate = scene.Models[0]; // Asume que solo hay un modelo
+                Mesh modelToTranslate = scene.ActiveModel; // Asume que solo hay un modelo
                 modelToTranslate.Transform.Translate(0.0f, -1.0f, 0.0f); // Ajusta según la necesidad
                 renderer.RenderScene(scene);
             }
@@ -163,9 +185,9 @@ namespace PLAYGROUND
 
         private void BTN_MOVERABAJO_Click(object sender, EventArgs e)
         {
-            if (scene.Models[0] != null)
+            if (scene.ActiveModel != null)
             {
-                Mesh modelToTranslate = scene.Models[0]; // Asume que solo hay un modelo
+                Mesh modelToTranslate = scene.ActiveModel;                  //n modelo
                 modelToTranslate.Transform.Translate(0.0f, 1.0f, 0.0f); // Ajusta según la necesidad
                 renderer.RenderScene(scene);
             }
@@ -173,9 +195,9 @@ namespace PLAYGROUND
 
         private void BTN_MOVERIZQUIERDA_Click(object sender, EventArgs e)
         {
-            if (scene.Models[0] != null)
+            if (scene.ActiveModel != null)
             {
-                Mesh modelToTranslate = scene.Models[0]; // Asume que solo hay un modelo
+                Mesh modelToTranslate = scene.ActiveModel; // Asume que solo hay un modelo
                 modelToTranslate.Transform.Translate(-1.0f, 0.0f, 0.0f); // Ajusta según la necesidad
                 renderer.RenderScene(scene);
             }
@@ -183,12 +205,65 @@ namespace PLAYGROUND
 
         private void BTN_MOVERDERECHA_Click(object sender, EventArgs e)
         {
-            if (scene.Models[0] != null)
+            if (scene.ActiveModel != null)
             {
-                Mesh modelToTranslate = scene.Models[0]; // Asume que solo hay un modelo
+                Mesh modelToTranslate = scene.ActiveModel; // Asume que solo hay un modelo
                 modelToTranslate.Transform.Translate(1.0f, 0.0f, 0.0f); // Ajusta según la necesidad
                 renderer.RenderScene(scene);
             }
         }
+
+        private void BTN_Scale_Click(object sender, EventArgs e)
+        {
+            if (scene.Models.Count > 0)
+            {
+                Mesh modelToScale = scene.ActiveModel;
+                if (float.TryParse(txtScaleX.Text, out float scaleX) &&
+                    float.TryParse(txtScaleY.Text, out float scaleY) &&
+                    float.TryParse(txtScaleZ.Text, out float scaleZ))
+                {
+                    if (scaleX >= 0.1f && scaleX <= 1.9f &&
+                        scaleY >= 0.1f && scaleY <= 1.9f &&
+                        scaleZ >= 0.1f && scaleZ <= 1.9f)
+                    {
+                        modelToScale.Transform.Scale(scaleX, scaleY, scaleZ);
+                        renderer.RenderScene(scene);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Los valores de escala deben estar entre 0.1 y 1.9.", "Error de entrada", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese valores numéricos válidos.", "Error de entrada", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void listBoxModels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = listBoxModels.SelectedIndex;
+            if (selectedIndex != -1)
+            {
+                scene.SetActiveModel(selectedIndex);  // Esto establece el modelo activo
+            }
+        }
+
+
+        /*
+private void BTN_RemoveModel_Click(object sender, EventArgs e)
+        {
+            if (listBoxModels.SelectedIndex != -1)
+            {
+                int selectedIndex = listBoxModels.SelectedIndex;
+                scene.RemoveModel(selectedIndex);
+                listBoxModels.Items.RemoveAt(selectedIndex);
+                modelNames.Remove(selectedIndex);
+                renderer.RenderScene(scene);
+            }
+        }
+        */
     }
+
 }

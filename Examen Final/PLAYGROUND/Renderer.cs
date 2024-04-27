@@ -207,20 +207,29 @@ namespace PLAYGROUND
                 for (int i = 0; i < mesh.Vertices.Count; i++)
                 {
                     Vertex vertex = mesh.Vertices[i];
-                    Vertex rotated = Rotaciones.Rot(mesh.Transform.RotationX, vertex, 'X');
+
+                    // Aplicar escalado
+                    Vertex scaled = new Vertex
+                    {
+                        X = vertex.X * mesh.Transform.ScaleX,
+                        Y = vertex.Y * mesh.Transform.ScaleY,
+                        Z = vertex.Z * mesh.Transform.ScaleZ
+                    };
+
+                    // Aplicar rotación
+                    Vertex rotated = Rotaciones.Rot(mesh.Transform.RotationX, scaled, 'X');
                     rotated = Rotaciones.Rot(mesh.Transform.RotationY, rotated, 'Y');
                     rotated = Rotaciones.Rot(mesh.Transform.RotationZ, rotated, 'Z');
 
-
-                    // Trasladar el vértice
-                    Vertex traslated = new Vertex
+                    // Aplicar traslación
+                    Vertex translated = new Vertex
                     {
                         X = rotated.X + mesh.Transform.TranslationX,
                         Y = rotated.Y + mesh.Transform.TranslationY,
-                        Z = rotated.Z + mesh.Transform.TranslationZ,
-
+                        Z = rotated.Z + mesh.Transform.TranslationZ
                     };
-                    transformedVertices.Add(traslated);
+
+                    transformedVertices.Add(translated);
                 }
 
                 for (int i = 0; i < mesh.Indexes.Count; i += 3)

@@ -16,14 +16,25 @@ namespace PLAYGROUND
         public float TranslationY { get; set; }
         public float TranslationZ { get; set; }
 
+        public float ScaleX { get; set; }
+        public float ScaleY { get; set; }
+        public float ScaleZ { get; set; }
+
+
+
         public Transform()
         {
             RotationX = 0f;
             RotationY = 0f;
             RotationZ = 0f;
+
             TranslationX = 0f;
             TranslationY = 0f;
             TranslationZ = 0f;
+
+            ScaleX = 1f;
+            ScaleY = 1f;
+            ScaleZ = 1f;
         }
 
         public void Rotate(float x, float y, float z)
@@ -38,6 +49,13 @@ namespace PLAYGROUND
             TranslationX += x;
             TranslationY += y;
             TranslationZ += z;
+        }
+
+        public void Scale(float x, float y, float z)
+        {
+            ScaleX *= x;
+            ScaleY *= y;
+            ScaleZ *= z;
         }
     }
 

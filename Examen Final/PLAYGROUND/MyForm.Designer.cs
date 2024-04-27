@@ -1,4 +1,6 @@
-﻿namespace PLAYGROUND
+﻿using System;
+
+namespace PLAYGROUND
 {
     partial class MyForm
     {
@@ -52,19 +54,20 @@
             this.BTN_2 = new System.Windows.Forms.Button();
             this.BTN_Rotate = new System.Windows.Forms.Button();
             this.PNL_BOTTOM = new System.Windows.Forms.Panel();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.TRACKBAR_KEYFRAME = new System.Windows.Forms.TrackBar();
             this.BTN_PLAY = new System.Windows.Forms.Button();
             this.BTN_KEYFRAME = new System.Windows.Forms.Button();
             this.LBL_STATUS = new System.Windows.Forms.Label();
             this.PNL_HEADER = new System.Windows.Forms.Panel();
             this.TIMER = new System.Windows.Forms.Timer(this.components);
             this.listBoxModels = new System.Windows.Forms.ListBox();
+            this.LBL_KEYFRAMECOUNT = new System.Windows.Forms.Label();
             this.PNL_MAIN.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PCT_CANVAS)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.PNL_BOTTOM.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TRACKBAR_KEYFRAME)).BeginInit();
             this.SuspendLayout();
             // 
             // PNL_MAIN
@@ -309,7 +312,8 @@
             // PNL_BOTTOM
             // 
             this.PNL_BOTTOM.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.PNL_BOTTOM.Controls.Add(this.trackBar1);
+            this.PNL_BOTTOM.Controls.Add(this.LBL_KEYFRAMECOUNT);
+            this.PNL_BOTTOM.Controls.Add(this.TRACKBAR_KEYFRAME);
             this.PNL_BOTTOM.Controls.Add(this.BTN_PLAY);
             this.PNL_BOTTOM.Controls.Add(this.BTN_KEYFRAME);
             this.PNL_BOTTOM.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -318,14 +322,14 @@
             this.PNL_BOTTOM.Size = new System.Drawing.Size(1283, 100);
             this.PNL_BOTTOM.TabIndex = 3;
             // 
-            // trackBar1
+            // TRACKBAR_KEYFRAME
             // 
-            this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.TRACKBAR_KEYFRAME.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar1.Location = new System.Drawing.Point(206, 41);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(871, 45);
-            this.trackBar1.TabIndex = 40;
+            this.TRACKBAR_KEYFRAME.Location = new System.Drawing.Point(206, 41);
+            this.TRACKBAR_KEYFRAME.Name = "TRACKBAR_KEYFRAME";
+            this.TRACKBAR_KEYFRAME.Size = new System.Drawing.Size(871, 45);
+            this.TRACKBAR_KEYFRAME.TabIndex = 40;
             // 
             // BTN_PLAY
             // 
@@ -337,6 +341,7 @@
             this.BTN_PLAY.TabIndex = 1;
             this.BTN_PLAY.Text = "PLAY";
             this.BTN_PLAY.UseVisualStyleBackColor = true;
+            this.BTN_PLAY.Click += new System.EventHandler(this.BTN_PLAY_Click);
             // 
             // BTN_KEYFRAME
             // 
@@ -346,6 +351,7 @@
             this.BTN_KEYFRAME.TabIndex = 0;
             this.BTN_KEYFRAME.Text = "KEY";
             this.BTN_KEYFRAME.UseVisualStyleBackColor = true;
+            this.BTN_KEYFRAME.Click += new System.EventHandler(this.BTN_KEYFRAME_Click);
             // 
             // LBL_STATUS
             // 
@@ -381,6 +387,15 @@
             this.listBoxModels.TabIndex = 4;
             this.listBoxModels.SelectedIndexChanged += new System.EventHandler(this.listBoxModels_SelectedIndexChanged);
             // 
+            // LBL_KEYFRAMECOUNT
+            // 
+            this.LBL_KEYFRAMECOUNT.AutoSize = true;
+            this.LBL_KEYFRAMECOUNT.Location = new System.Drawing.Point(3, 14);
+            this.LBL_KEYFRAMECOUNT.Name = "LBL_KEYFRAMECOUNT";
+            this.LBL_KEYFRAMECOUNT.Size = new System.Drawing.Size(160, 24);
+            this.LBL_KEYFRAMECOUNT.TabIndex = 41;
+            this.LBL_KEYFRAMECOUNT.Text = "Key frames count:";
+            // 
             // MyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -398,7 +413,7 @@
             this.panel1.ResumeLayout(false);
             this.PNL_BOTTOM.ResumeLayout(false);
             this.PNL_BOTTOM.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TRACKBAR_KEYFRAME)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -418,7 +433,7 @@
         private System.Windows.Forms.Button BTN_SELECT;
         private System.Windows.Forms.Button BTN_PLAY;
         private System.Windows.Forms.Button BTN_KEYFRAME;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar TRACKBAR_KEYFRAME;
         private System.Windows.Forms.CheckBox CHECKBOX_RotacionZ;
         private System.Windows.Forms.CheckBox CHECKBOX_RotacionY;
         private System.Windows.Forms.CheckBox CHECKBOX_RotacionX;
@@ -435,6 +450,7 @@
         private System.Windows.Forms.Label LBL_ESCALADOX;
         private System.Windows.Forms.Label LBL_ESCALADO;
         private System.Windows.Forms.ListBox listBoxModels;
+        private System.Windows.Forms.Label LBL_KEYFRAMECOUNT;
     }
 }
 

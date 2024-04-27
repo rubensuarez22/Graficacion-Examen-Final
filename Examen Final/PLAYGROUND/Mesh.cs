@@ -47,6 +47,12 @@ namespace PLAYGROUND
             }
         }
 
+        public Transform GetCurrentTransform()
+        {
+            // Simply return the current Transform object
+            return Transform;
+        }
+
         public void PrintCenterInfo()
         {
             Console.WriteLine($"Centro del modelo: X={Center.X}, Y={Center.Y}, Z={Center.Z}");
@@ -55,5 +61,7 @@ namespace PLAYGROUND
         public void Render()
         {
         }
+
+
     }
 }

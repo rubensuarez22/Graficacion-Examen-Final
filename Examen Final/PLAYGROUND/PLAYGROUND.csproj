@@ -90,6 +90,7 @@
     <Compile Include="Renderer.cs" />
     <Compile Include="Rotaciones.cs" />
     <Compile Include="Scene.cs" />
+    <Compile Include="SceneKeyFrame.cs" />
     <Compile Include="Transform.cs" />
     <Compile Include="Triangle.cs" />
     <Compile Include="Vertex.cs" />

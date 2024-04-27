@@ -7,6 +7,7 @@ namespace PLAYGROUND
         public List<Mesh> Models { get; set; } = new List<Mesh>();
         public Mesh ActiveModel { get; private set; }
 
+        public List<SceneKeyframe> Keyframes { get; set; } = new List<SceneKeyframe>();
         public Scene()
         {
             Models = new List<Mesh>();
@@ -25,6 +26,14 @@ namespace PLAYGROUND
             }
         }
 
+        public void AddKeyframe(SceneKeyframe keyframe)
+        {
+            Keyframes.Add(keyframe);
+            Keyframes.Sort((k1, k2) => k1.Time.CompareTo(k2.Time)); // Ensure keyframes are ordered by time
+        }
 
     }
+
+
 }
+
